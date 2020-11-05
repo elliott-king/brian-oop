@@ -1,3 +1,5 @@
+from functools import reduce
+
 # A function that returns another function. These are also called 'closures'
 def create_adder(x):
     # Note how this fn is declared WITHIN the block
@@ -34,6 +36,12 @@ c()
 
 # Create a closure that takes in an index, and returns a function that takes an
 # array & removes the element at that index.
+def create_remover(index):
+    def removed(array):
+        array.pop(index)
+        return array
+    return removed
+
 remover = create_remover(2)
 remover(['hi', 'hello', 'foo', 'bar']) # ['hi', 'hello', 'bar']
 
@@ -44,6 +52,20 @@ remover([1,2,3,4,5,6,7,8,9]) # [1,2,3,4,5,6,7,9]
 # Python generators: https://www.tutorialspoint.com/generators-in-python
 # Fibonacci sequence: https://en.wikipedia.org/wiki/Fibonacci_number
 # Starting with 1 instead of zero is fine.
+def next_fib():
+    i = 1
+    j = 1
+    while True:
+        k = i + j
+        yield k
+        i = j
+        j = k
+
+for fib_num in next_fib():
+    if fib_num > 1000000:
+        break
+    print(fib_num)
+
 
 # Next, some familiarity with "map", "filter" and "reduce".
 # Here is a function that iterates through and array and only keeps elements < 10
@@ -58,16 +80,46 @@ def keep_lower_than_ten(array):
 # Instead, write a function, and use `filter`
 # https://www.w3schools.com/python/ref_func_filter.asp
 # Note that `filter` returns an iterable, not an array. Convert it to an array with `list()`
+array = [84, 2, -9, 42, 10, -10, 17, 54, 3]
+def filter_func(value):
+    if value < 10:
+        return True
+    else:
+        return False
+
+new_array = []
+for val in filter(filter_func, array):
+    new_array.append(val)
+print(new_array)
+
 
 # Finally, try to write it in one line - use a "lambda" (a undeclared function)
 # https://www.tutorialspoint.com/lambda-and-filter-in-python-examples
+array = [84, 2, -9, 42, 10, -10, 17, 54, 3]
+new_array = list(filter(lambda x: x < 10, array))
+print(new_array)
+
 
 # Map - take an array and multiply all of the elements by -1
+array = [84, 2, -9, 42, 10, -10, 17, 54, 3]
+new_array = list(map(lambda x: x / -1, array))
+
 
 # Reduce - this is the hardest one. Reduce is difficult because you need to keep track of a value.
 # I will let you do the research for this.
 # Note that you will need `from itertools import reduce`
 # Start easy - make a reducer that takes in an array of numbers & returns the sum of the array (there are a lot of guides for this)
 find_sum([3, 5, -1, 6, 12]) # returns 25
+
+#1
+def array_sum(array):
+    return reduce(lambda a, b: a + b, array)
+
+#2
+array = ([3, 5, -1, 6, 12])
+print(reduce(lambda a, b: a + b, array))
+
+
 # Finally, do something much more difficult - take an array of strings & return the most common character (break a tie how you want)
 find_most_common(["hello", "how are you", "not bad", "foo", "bar", "summary"]) # returns 'o'
+
