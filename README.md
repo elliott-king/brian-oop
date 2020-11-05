@@ -2,6 +2,22 @@ To upload your stuff to Github, you should not directly clone this repository. I
 
 I split this up into blocks. If you have troubles finishing them all, (esp BeautifulSoup), no problem. We can talk about what you finish. 
 
+# Table of Contents
+- [Table of Contents](#table-of-contents)
+- [General Python](#general-python)
+  - [The Python Interpreter/CLI](#the-python-interpretercli)
+  - [Autocomplete](#autocomplete)
+  - [Extending the palindrome](#extending-the-palindrome)
+- [More Git](#more-git)
+- [Object-Oriented Programming](#object-oriented-programming)
+- [Lambdas & some Functional programming](#lambdas--some-functional-programming)
+- [BeautifulSoup](#beautifulsoup)
+  - [Copying HTML](#copying-html)
+  - [Browser Inspect Element](#browser-inspect-element)
+  - [BeautifulSoup](#beautifulsoup-1)
+  - [The actual assignment](#the-actual-assignment)
+
+
 # General Python 
 
 ## The Python Interpreter/CLI
