@@ -134,10 +134,10 @@ def find_most_common(array):
             max_index = index
     return chr(max_index + 97)
 
-def reducer(prev_values_from_reducer, next_value):
+def reducer(array_count, next_value):
     for letter in next_value:
         letter = letter.lower()
         index = ord(letter) - 97
         if index >=0 and index < 26:
-            prev_values_from_reducer[index] += 1
-    return prev_values_from_reducer
+            array_count[index] += 1
+    return array_count
