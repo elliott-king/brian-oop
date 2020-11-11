@@ -20,19 +20,26 @@ class Board:
 
     def valid_move(self, index):
         # TODO: should return True if valid, False if not
-        pass
+        if self.board[index] == " ":
+            return True
+        return False
 
     def move(self, index, token):
         # TODO: does not need to return anything, but should update the board
-        pass
+        self.board[index] = token
 
     def check_combination(self, combination):
+        if self.board[combination[0]] == self.board[combination[1]] and self.board[combination[1]] == self.board[combination[2]] and self.board[combination[0]] != " ":
+            return True
+        return False
         # TODO: check if all spots in a combination are taken by the same player. Return T or F
-        pass
+        
 
     def is_full(self):
         # TODO: check if board is full, return T/F
-        pass
+        if " " in self.board:
+            return False
+        return True
 
     def is_won(self):
         for combination in WIN_COMBINATIONS:
@@ -65,14 +72,22 @@ class Game:
     # helper method to get player name from current token
     def current_player(self):
         # TODO: return name of current player
-        pass
+        if self.current_token =="X":
+            return self.player1
+        else:
+            return self.player2
 
     def update_token(self):
         # TODO: cycle the current token
-        pass
+        if self.current_token == "X":
+            self.current_token = "O"
+        else:
+            self.current_token = "X"
 
     def turn(self):
-        user_input = input(self.current_player() + ", please enter a space to choose (1-9):")
+        user_input = 10
+        while user_input > 9:
+            user_input = int(input(str(self.current_player()) + ", please enter a space to choose (1-9):"))
         index = self.input_to_index(user_input)
         if self.game_board.valid_move(index):
             self.game_board.move(index, self.current_token)
@@ -91,7 +106,10 @@ class Game:
         print("Now playing with players", self.player1, "and", self.player2)
 
     def winner(self):
-        # todo: get the winner's name & return
+        if self.game_board.winning_token() == "X":
+            return self.player1
+        else:
+            return self.player2
         pass
 
     # This fn controls the flow of the game
