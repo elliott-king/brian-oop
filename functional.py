@@ -61,10 +61,8 @@ def next_fib():
         i = j
         j = k
 
-for fib_num in next_fib():
-    if fib_num > 1000000:
-        break
-    print(fib_num)
+fib_gen = next_fib()
+next(fib_gen)
 
 
 # Next, some familiarity with "map", "filter" and "reduce".
@@ -117,9 +115,29 @@ def array_sum(array):
 
 #2
 array = ([3, 5, -1, 6, 12])
-print(reduce(lambda a, b: a + b, array))
+print(reduce(lambda a, b: a + b, array, 0))
 
 
 # Finally, do something much more difficult - take an array of strings & return the most common character (break a tie how you want)
 find_most_common(["hello", "how are you", "not bad", "foo", "bar", "summary"]) # returns 'o'
 
+
+def find_most_common(array):
+    initial = [0] * 26
+    final_array = reduce(reducer, array, initial)
+    
+    maximum = 0
+    max_index = 0
+    for index, val in enumerate(final_array):
+        if val > maximum:
+            maximum = val
+            max_index = index
+    return chr(max_index + 97)
+
+def reducer(array_count, next_value):
+    for letter in next_value:
+        letter = letter.lower()
+        index = ord(letter) - 97
+        if index >=0 and index < 26:
+            array_count[index] += 1
+    return array_count
